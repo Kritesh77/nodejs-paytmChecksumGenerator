@@ -17,12 +17,15 @@ const port = 4000;
 app.post("/getPaytmChecksum", async (req, res) => {
   let data = req.body;
 
-  var checksum = "";
   await PaytmChecksum.generateSignature(JSON.stringify(data.body), data.mkey)
     .then((chksum) => {
       res.status(200).json(chksum);
     })
     .catch((err) => {});
+});
+
+app.get("/", (req, res) => {
+  res.send("Hello World!");
 });
 
 app.listen(port, () => {
